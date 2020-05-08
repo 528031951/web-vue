@@ -12,18 +12,17 @@ const router = new Router({
 // 解决添加相同路由报错问题
 const routerPush=Router.prototype.push
 
-
 /**
  * 路由拦截
  * 权限验证
  */
 router.beforeEach((to, from, next) => {
-    if(to.fullPath!=='/'){
-        next('nameTest');
+ /*   if(to.fullPath!=='/'){
+        next({name:'Homes'});
     }else {
         next();
-    }
-
+    }*/
+    next();
 });
 
 router.afterEach(to => {
