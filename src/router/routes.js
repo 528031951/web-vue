@@ -1,14 +1,20 @@
 import Hello from '../views/navigation/index'  //引入根目录下的Hello.vue组件
-import nameTest from './home/index'  //引入根目录下的Hello.vue组件
+import aaa from '../views/index'  //引入根目录下的Hello.vue组件
+/*import nameTest from './home/index'  //引入根目录下的Hello.vue组件*/
+import nameTest from "@/views/index"
 export default [
     {
         path: "/",
         name: "Home",
         component: Hello,
-        meta: {
-            index: 0,
-            title: '首页'
-        }
+    },{
+        path: "/aaa",
+        name: "Homes",
+        component: aaa,
+    },{
+        path: "/nameTest",
+        name: "nameTest",
+        component: nameTest,
     },
-     ...nameTest
+
 ];
