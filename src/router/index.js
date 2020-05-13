@@ -17,12 +17,17 @@ const routerPush=Router.prototype.push
  * 权限验证
  */
 router.beforeEach((to, from, next) => {
- /*   if(to.fullPath!=='/'){
-        next({name:'Homes'});
+    var item = localStorage.getItem("userTypeSelect");
+    if(item==null) {
+        if (to.fullPath === '/nameTest') {
+            next();
+        } else {
+            next("nameTest");
+        }
     }else {
         next();
-    }*/
-    next();
+    }
+
 });
 
 router.afterEach(to => {
