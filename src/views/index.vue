@@ -4,13 +4,12 @@
             <div class="login_index">
                 <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                     <el-col>统一登录入口</el-col>
-                    <el-col v-if="userErrcode===true" style="color: red">账号或密码错误</el-col>
                     <el-col>
                     <el-form-item label="账号：" prop="userName" style="width: 320px;">
-                        <el-input type="username" v-model="ruleForm.userName" autocomplete="off"></el-input>
+                        <el-input type="username" v-model="ruleForm.userName" autocomplete="off"> <i slot="prefix" class="el-icon-user-solid"></i> </el-input>
                     </el-form-item>
                     <el-form-item label="密码：" prop="password" style="width: 320px;">
-                        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+                        <el-input type="password" v-model="ruleForm.password" autocomplete="off" utocomplete="new-password"> <i slot="prefix" class="el-icon-unlock"></i></el-input>
                     </el-form-item>
                     <el-form-item style="width: 300px;">
                         <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
@@ -18,9 +17,7 @@
                     </el-form-item>
                     </el-col>
                 </el-form>
-
-
-            </div>
+                </div>
         </div>
     </div>
 </template>
@@ -34,7 +31,6 @@
                     userName: '',
                     password: '',
                 },
-                userErrcode:false,
                 rules: {
                     userName: [
                         { required: true, message: '请填写用户名', trigger: 'blur' }
@@ -54,11 +50,18 @@
                             if(res.data.code===0){
                                 localStorage['userTypeSelect']=JSON.stringify("admin");
                                 this.$router.push({path: "/",});
+                                this.$notify({
+                                    title: '成功',
+                                    message: '登录成功，欢迎回来',
+                                    type: 'success'
+                                });
                             }else {
-                                this.userErrcode=true;
+                                this.$notify.error({
+                                    title: '账号或密码错误',
+                                    message: '账号或密码错误,请确认后在登录或联系相关管理员！'
+                                });
+                                this.ruleForm={};
                             }
-
-
                         })
                     } else {
                         return false;
@@ -70,7 +73,7 @@
     }
 </script>
 
-<style >
+<style scoped >
     .index {
         width: 100%;
         position: absolute;
@@ -99,6 +102,7 @@
     .el-form-item {
         margin-left: 37%;
     }
+
     .el-form-item__label{
         color: #fff;
     }
